@@ -1,0 +1,27 @@
+@layer utilities {
+  .animate-carousel {
+    animation: carousel 30s linear infinite;
+  }
+
+  @media (min-width: 481px) {
+    .animate-carousel-sm {
+      animation: carousel 40s linear infinite !important;
+    }
+  }
+
+  .animate-carousel-vertical {
+    animation: carousel-vertical 40s linear infinite;
+  }
+
+  .carousel-container:hover .animate-carousel,
+  .carousel-container:hover .animate-carousel-vertical,
+  .carousel-container:hover .animate-carousel-sm {
+    animation-play-state: paused !important;
+  }
+
+  .animate-wave path {
+    animation-name: wave;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+}

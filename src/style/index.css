@@ -1,0 +1,265 @@
+/* 1. ИМПОРТЫ СТРОГО НА ПЕРВЫХ СТРОЧКАХ */
+@import "tailwindcss";
+@import "./animation.css";
+
+/* 2. БАЗОВЫЕ СТИЛИ */
+body {
+  font-family: "Inter", sans-serif;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #404040;
+}
+
+/* 3. ЭФФЕКТЫ И СЕТКИ */
+.bg-grid {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(168, 85, 247, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  -webkit-mask-image: linear-gradient(to bottom, white, transparent);
+  mask-image: linear-gradient(to bottom, white, transparent);
+}
+
+.animate-gradient-x {
+  animation: gradient-x 3s ease infinite;
+  background-size: 200% 200%;
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+.animate-float-delayed {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: 2s;
+}
+.animate-blob {
+  animation: blob 7s infinite;
+}
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+.animate-grid-flow {
+  animation: grid-flow 3s linear infinite;
+}
+.animate-pulse-slow {
+  animation: pulse-slow 8s ease-in-out infinite;
+}
+
+/* 3D Карточки */
+.group-3d {
+  perspective: 1200px;
+}
+.card-3d {
+  transform-style: preserve-3d;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.group-3d:hover .card-3d {
+  transform: rotateX(4deg) rotateY(-4deg) translateY(-8px);
+}
+.content-3d {
+  transform: translateZ(30px);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E");
+}
+
+/* 4. НОВЫЕ УТИЛИТЫ ДЛЯ TAILWIND V4 (БЕЗ ИЕРОГЛИФОВ) */
+@utility bg-banner-gradient {
+  background: linear-gradient(
+    90deg,
+    rgba(88, 28, 135, 0.9) 0%,
+    rgba(124, 58, 237, 0.85) 50%,
+    rgba(76, 29, 149, 0.9) 100%
+  );
+}
+
+@utility bg-banner-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Анимация появления хедера */
+@utility animate-header-appear {
+  animation: header-appear 0.5s ease-in-out forwards;
+}
+
+/* Пульсирующие круги */
+@utility wooble-circle {
+  &::after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    inset: -10px;
+    border-radius: 100%;
+    border: 0px solid transparent;
+    animation: zoom-wooble 3s ease-in-out infinite;
+  }
+  &::before {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    inset: -10px;
+    border-radius: 100%;
+    border: 0px solid transparent;
+    animation: zoom-wooble 3s ease-in-out 0.3s infinite;
+  }
+}
+
+/* ДВИЖЕНИЕ И ОСТАНОВКА КАРУСЕЛИ */
+@utility animate-carousel {
+  animation: carousel 30s linear infinite;
+  will-change: transform;
+}
+
+@utility carousel-container {
+  &:hover .animate-carousel {
+    animation-play-state: paused !important;
+  }
+}
+
+/* Волна */
+@utility animate-wave {
+  & path {
+    animation-name: wave;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+}
+
+/* 5. ВСЕ КЛЮЧЕВЫЕ КАДРЫ (KEYFRAMES) */
+@keyframes scanBeam {
+  0% {
+    transform: translateY(100vh); /* Начинаем снизу экрана */
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-200px); /* Уходим наверх за пределы секции */
+    opacity: 0;
+  }
+}
+
+@keyframes gradient-x {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(1deg);
+  }
+}
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+@keyframes grid-flow {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 -40px;
+  }
+}
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+@keyframes zoom-wooble {
+  from {
+    transform: scale(0);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1.2);
+    opacity: 0;
+    box-shadow:
+      0 0 10px white,
+      0 0 15px white,
+      0 0 20px white,
+      inset 0 0 10px white;
+  }
+}
+@keyframes carousel {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+@keyframes wave {
+  0% {
+    transform: translateX(0%);
+    opacity: 0%;
+  }
+  20% {
+    opacity: 100%;
+  }
+  80% {
+    opacity: 100%;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+@keyframes header-appear {
+  0% {
+    transform: translateY(-100%);
+  }
+  35% {
+    transform: translateY(-20%);
+  }
+  55% {
+    transform: translateY(0);
+  }
+  85% {
+    transform: translateY(-10%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
