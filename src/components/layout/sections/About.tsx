@@ -1,6 +1,3 @@
-import React from "react";
-// Импортируем конкретную иконку через ~icons
-// Формат: '~icons/{коллекция}/{название-иконки}'
 import SolarVerifiedCheckBold from "~icons/solar/verified-check-bold";
 
 export const About = () => {
