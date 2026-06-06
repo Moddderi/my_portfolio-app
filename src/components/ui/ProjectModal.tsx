@@ -88,35 +88,37 @@ const ModalContent = ({ project, onClose }: ModalContentProps) => {
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Слайдер */}
+          {/* Слайдер */}
           <div className="lg:col-span-2 flex flex-col bg-neutral-950/40 rounded-2xl border border-neutral-800/40 overflow-hidden min-h-70 lg:h-full relative group">
-            <div className="relative w-full h-full min-h-60 flex-1 overflow-hidden">
+            {/* Добавили скролл-контейнер для мобилок и scroll-smooth */}
+            <div
+              id="modal-slider-container"
+              className="relative w-full h-full min-h-60 flex-1 flex overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none"
+            >
               {projectImages.map((imgUrl, index) => (
                 <div
                   key={index}
-                  className={`absolute inset-0 w-full h-full transition-all duration-500 ease-in-out transform ${
-                    index === currentSlide
-                      ? "opacity-100 scale-100 pointer-events-auto"
-                      : "opacity-0 scale-95 pointer-events-none"
-                  }`}
+                  className="w-full h-full flex-shrink-0 snap-start relative min-w-full"
                 >
                   <img
                     src={imgUrl}
                     alt={`${project.title} screenshot ${index + 1}`}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
                 </div>
               ))}
 
+              {/* Кнопки прячем на мобилках (hidden sm:flex), так как там свайпают пальцем */}
               <button
                 onClick={prevSlide}
-                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/50 border border-white/10 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-neutral-900"
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/50 border border-white/10 hidden sm:flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-neutral-900"
               >
                 <IconArrowLeft className="text-sm" />
               </button>
               <button
                 onClick={nextSlide}
-                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/50 border border-white/10 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-neutral-900"
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/50 border border-white/10 hidden sm:flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-neutral-900"
               >
                 <IconArrowRight className="text-sm" />
               </button>
@@ -125,7 +127,6 @@ const ModalContent = ({ project, onClose }: ModalContentProps) => {
             {/* Точки-индикаторы с динамическим фоном активной точки */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 bg-neutral-900/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/5">
               {projectImages.map((_, index) => {
-                // Вычисляем цвет активной точки в зависимости от id проекта
                 let activeColor = "bg-purple-500";
                 if (project.id === "kirich-sewing-studio")
                   activeColor = "bg-fuchsia-500";
