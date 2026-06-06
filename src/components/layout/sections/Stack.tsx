@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from "react";
 import IconArrowAltUp from "~icons/solar/alt-arrow-up-linear";
 import IconLayers from "~icons/solar/layers-linear";
 import IconMonitorSmartphone from "~icons/solar/monitor-smartphone-linear";
@@ -8,7 +9,27 @@ import IconDatabase from "~icons/solar/database-linear";
 import { LANGUAGE_IMAGES } from "@/data/languages";
 
 export const Stack = () => {
-  // Фильтруем иконки для каждой карточки на лету, чтобы не хардкодить пути заново
+  const [activePopup, setActivePopup] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setActivePopup(null);
+      }
+    };
+    document.addEventListener("click", handleOutsideClick);
+    return () => document.removeEventListener("click", handleOutsideClick);
+  }, []);
+
+  const togglePopup = (cardId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setActivePopup(activePopup === cardId ? null : cardId);
+  };
+
   const frontendTech = LANGUAGE_IMAGES.filter((tech) =>
     [
       "React",
@@ -36,7 +57,7 @@ export const Stack = () => {
       id="stack"
       className="py-24 border-t border-neutral-900/50 bg-[#050505]/75 backdrop-blur-md"
     >
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6" ref={containerRef}>
         {/* Хедер секции */}
         <div className="mb-16 flex flex-col lg:flex-row gap-10 lg:items-end justify-between relative">
           <div className="absolute -left-10 -top-10 w-48 h-48 bg-purple-500/10 blur-[80px] rounded-full z-0 pointer-events-none"></div>
@@ -49,10 +70,10 @@ export const Stack = () => {
             </h2>
             <p className="text-base text-neutral-400 font-extralight max-w-xl leading-relaxed">
               Tools I use to build high-load, high-performance products.
-              Continuously learning new technologies to solve complex business
-              challenges.
             </p>
           </div>
+
+          {/* Проекты / Технологии Каунтеры */}
           <div className="flex flex-wrap sm:flex-nowrap gap-8 md:gap-10 relative z-10 p-6 md:p-8 rounded-3xl border border-neutral-800/60 bg-[#070707]/95 backdrop-blur-md shadow-2xl">
             <div className="flex flex-col">
               <span className="text-4xl md:text-5xl text-white font-medium tracking-tighter mb-1 flex items-center">
@@ -96,8 +117,7 @@ export const Stack = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* 1. FRONTEND CARD */}
           <div className="group-3d h-full">
-            {/* Изменено: bg-neutral-900/60 (было /20) и hover:bg-neutral-900/80 (было /40) */}
-            <div className="card-3d p-8 rounded-3xl border border-neutral-800/60 bg-neutral-900/60 hover:bg-neutral-900/80 hover:shadow-[0_20px_40px_-10px_rgba(99,102,241,0.15)] hover:border-indigo-500/40 transition-all duration-500 relative overflow-visible flex flex-col h-full group">
+            <div className="card-3d p-8 rounded-3xl border border-neutral-800/60 bg-neutral-900/60 hover:bg-neutral-900/80 hover:shadow-[0_20px_40px_-10px_rgba(99,102,241,0.15)] hover:border-indigo-500/40 transition-all duration-500 relative flex flex-col h-full group">
               <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 blur-[80px] rounded-full -z-10 group-hover:bg-indigo-500/20 transition-colors duration-500 animate-blob"></div>
               <div className="content-3d flex flex-col h-full">
                 <div className="w-12 h-12 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center mb-6 text-neutral-400 group-hover:text-indigo-400 group-hover:border-indigo-500/40 group-hover:bg-indigo-900/30 transition-all duration-500">
@@ -114,10 +134,19 @@ export const Stack = () => {
                   interfaces with a focus on UX and accessibility.
                 </p>
 
-                <div className="relative group/btn mt-auto w-max">
-                  {/* Поп-ап со стеком (bg-neutral-900/98 для максимальной непрозрачности) */}
-                  <div className="absolute bottom-full left-0 mb-3 w-max max-w-xs sm:max-w-md opacity-0 invisible group-hover/btn:opacity-100 group-hover/btn:visible translate-y-2 group-hover/btn:translate-y-0 transition-all duration-300 z-50 rounded-2xl border border-neutral-800 bg-neutral-900/98 backdrop-blur-xl p-5 shadow-2xl shadow-indigo-500/10">
-                    <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+                {/* Обертка кнопки и попапа БЕЗ overflow-visible проблем */}
+                <div className="relative mt-auto w-full lg:w-max">
+                  {/* Мобильный/Десктопный адаптированный контейнер */}
+                  <div
+                    className={`lg:absolute lg:bottom-full lg:left-0 lg:mb-3 w-full lg:w-max lg:max-w-md rounded-2xl border border-neutral-800 bg-neutral-950/95 lg:bg-neutral-900/98 backdrop-blur-xl p-5 shadow-2xl shadow-indigo-500/10 transition-all duration-300 z-50
+                      /* Логика отображения */
+                      ${
+                        activePopup === "frontend"
+                          ? "opacity-100 visible max-h-[500px] my-4 lg:my-0 lg:translate-y-0"
+                          : "opacity-0 invisible max-h-0 lg:max-h-none overflow-hidden lg:overflow-visible lg:translate-y-2 lg:group-hover:opacity-100 lg:group-hover:visible lg:group-hover:translate-y-0"
+                      }`}
+                  >
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                       {frontendTech.map((tech) => (
                         <div
                           key={tech.name}
@@ -128,20 +157,26 @@ export const Stack = () => {
                             alt={tech.name}
                             className="w-5 h-5 object-contain"
                           />
-                          <span className="font-normal">{tech.name}</span>
+                          <span className="font-normal text-xs sm:text-sm">
+                            {tech.name}
+                          </span>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  <button className="px-5 py-2.5 rounded-xl border border-neutral-800 bg-neutral-900/90 text-sm text-neutral-300 font-normal group-hover/btn:text-white group-hover/btn:border-indigo-500/50 group-hover/btn:bg-indigo-900/40 transition-all flex items-center gap-2">
+                  <button
+                    onClick={(e) => togglePopup("frontend", e)}
+                    className={`w-full lg:w-auto px-5 py-2.5 rounded-xl border text-sm font-normal transition-all flex items-center justify-center lg:justify-start gap-2 lg:group-hover:text-white lg:group-hover:border-indigo-500/50 lg:group-hover:bg-indigo-900/40 
+                      ${activePopup === "frontend" ? "text-white border-indigo-500/50 bg-indigo-900/40" : "border-neutral-800 bg-neutral-900/90 text-neutral-300"}`}
+                  >
                     <IconLayers
                       className="text-lg"
                       style={{ strokeWidth: 1.5 }}
                     />
                     Stack
                     <IconArrowAltUp
-                      className="ml-1 opacity-50 group-hover/btn:rotate-180 transition-transform"
+                      className={`ml-1 opacity-50 transition-transform ${activePopup === "frontend" ? "rotate-180" : "lg:group-hover:rotate-180"}`}
                       style={{ strokeWidth: 1.5 }}
                     />
                   </button>
@@ -152,8 +187,7 @@ export const Stack = () => {
 
           {/* 2. BACKEND CARD */}
           <div className="group-3d h-full">
-            {/* Изменено: bg-neutral-900/60 и hover:bg-neutral-900/80 */}
-            <div className="card-3d p-8 rounded-3xl border border-neutral-800/60 bg-neutral-900/60 hover:bg-neutral-900/80 hover:shadow-[0_20px_40px_-10px_rgba(168,85,247,0.15)] hover:border-purple-500/40 transition-all duration-500 relative overflow-visible flex flex-col h-full group">
+            <div className="card-3d p-8 rounded-3xl border border-neutral-800/60 bg-neutral-900/60 hover:bg-neutral-900/80 hover:shadow-[0_20px_40px_-10px_rgba(168,85,247,0.15)] hover:border-purple-500/40 transition-all duration-500 relative flex flex-col h-full group">
               <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 blur-[80px] rounded-full -z-10 group-hover:bg-purple-500/20 transition-colors duration-500 animate-blob animation-delay-2000"></div>
               <div className="content-3d flex flex-col h-full">
                 <div className="w-12 h-12 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center mb-6 text-neutral-400 group-hover:text-purple-400 group-hover:border-purple-500/40 group-hover:bg-purple-900/30 transition-all duration-500">
@@ -170,10 +204,16 @@ export const Stack = () => {
                   of handling high loads.
                 </p>
 
-                <div className="relative group/btn mt-auto w-max">
-                  {/* Поп-ап со стеком */}
-                  <div className="absolute bottom-full left-0 mb-3 w-max opacity-0 invisible group-hover/btn:opacity-100 group-hover/btn:visible translate-y-2 group-hover/btn:translate-y-0 transition-all duration-300 z-50 rounded-2xl border border-neutral-800 bg-neutral-900/98 backdrop-blur-xl p-5 shadow-2xl shadow-purple-500/10">
-                    <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+                <div className="relative mt-auto w-full lg:w-max">
+                  <div
+                    className={`lg:absolute lg:bottom-full lg:left-0 lg:mb-3 w-full lg:w-max lg:max-w-md rounded-2xl border border-neutral-800 bg-neutral-950/95 lg:bg-neutral-900/98 backdrop-blur-xl p-5 shadow-2xl shadow-purple-500/10 transition-all duration-300 z-50
+                      ${
+                        activePopup === "backend"
+                          ? "opacity-100 visible max-h-[500px] my-4 lg:my-0 lg:translate-y-0"
+                          : "opacity-0 invisible max-h-0 lg:max-h-none overflow-hidden lg:overflow-visible lg:translate-y-2 lg:group-hover:opacity-100 lg:group-hover:visible lg:group-hover:translate-y-0"
+                      }`}
+                  >
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                       {backendTech.map((tech) => (
                         <div
                           key={tech.name}
@@ -184,20 +224,26 @@ export const Stack = () => {
                             alt={tech.name}
                             className="w-5 h-5 object-contain"
                           />
-                          <span className="font-normal">{tech.name}</span>
+                          <span className="font-normal text-xs sm:text-sm">
+                            {tech.name}
+                          </span>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  <button className="px-5 py-2.5 rounded-xl border border-neutral-800 bg-neutral-900/90 text-sm text-neutral-300 font-normal group-hover/btn:text-white group-hover/btn:border-purple-500/50 group-hover/btn:bg-purple-900/40 transition-all flex items-center gap-2">
+                  <button
+                    onClick={(e) => togglePopup("backend", e)}
+                    className={`w-full lg:w-auto px-5 py-2.5 rounded-xl border text-sm font-normal transition-all flex items-center justify-center lg:justify-start gap-2 lg:group-hover:text-white lg:group-hover:border-purple-500/50 lg:group-hover:bg-purple-900/40 
+                      ${activePopup === "backend" ? "text-white border-purple-500/50 bg-purple-900/40" : "border-neutral-800 bg-neutral-900/90 text-neutral-300"}`}
+                  >
                     <IconLayers
                       className="text-lg"
                       style={{ strokeWidth: 1.5 }}
                     />
                     Stack
                     <IconArrowAltUp
-                      className="ml-1 opacity-50 group-hover/btn:rotate-180 transition-transform"
+                      className={`ml-1 opacity-50 transition-transform ${activePopup === "backend" ? "rotate-180" : "lg:group-hover:rotate-180"}`}
                       style={{ strokeWidth: 1.5 }}
                     />
                   </button>
@@ -208,8 +254,7 @@ export const Stack = () => {
 
           {/* 3. DEVOPS & TOOLS CARD */}
           <div className="group-3d h-full">
-            {/* Изменено: bg-neutral-900/60 и hover:bg-neutral-900/80 */}
-            <div className="card-3d p-8 rounded-3xl border border-neutral-800/60 bg-neutral-900/60 hover:bg-neutral-900/80 hover:shadow-[0_20px_40px_-10px_rgba(217,70,239,0.15)] hover:border-fuchsia-500/40 transition-all duration-500 relative overflow-visible flex flex-col h-full group">
+            <div className="card-3d p-8 rounded-3xl border border-neutral-800/60 bg-neutral-900/60 hover:bg-neutral-900/80 hover:shadow-[0_20px_40px_-10px_rgba(217,70,239,0.15)] hover:border-fuchsia-500/40 transition-all duration-500 relative flex flex-col h-full group">
               <div className="absolute top-0 right-0 w-64 h-64 bg-fuchsia-500/10 blur-[80px] rounded-full -z-10 group-hover:bg-fuchsia-500/20 transition-colors duration-500 animate-blob animation-delay-4000"></div>
               <div className="content-3d flex flex-col h-full">
                 <div className="w-12 h-12 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center mb-6 text-neutral-400 group-hover:text-fuchsia-400 group-hover:border-fuchsia-500/40 group-hover:bg-fuchsia-900/30 transition-all duration-500">
@@ -226,10 +271,16 @@ export const Stack = () => {
                   containerizing applications for seamless deployment.
                 </p>
 
-                <div className="relative group/btn mt-auto w-max">
-                  {/* Поп-ап со стеком */}
-                  <div className="absolute bottom-full left-0 mb-3 w-max opacity-0 invisible group-hover/btn:opacity-100 group-hover/btn:visible translate-y-2 group-hover/btn:translate-y-0 transition-all duration-300 z-50 rounded-2xl border border-neutral-800 bg-neutral-900/98 backdrop-blur-xl p-5 shadow-2xl shadow-fuchsia-500/10">
-                    <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+                <div className="relative mt-auto w-full lg:w-max">
+                  <div
+                    className={`lg:absolute lg:bottom-full lg:left-0 lg:mb-3 w-full lg:w-max lg:max-w-md rounded-2xl border border-neutral-800 bg-neutral-950/95 lg:bg-neutral-900/98 backdrop-blur-xl p-5 shadow-2xl shadow-fuchsia-500/10 transition-all duration-300 z-50
+                      ${
+                        activePopup === "devops"
+                          ? "opacity-100 visible max-h-[500px] my-4 lg:my-0 lg:translate-y-0"
+                          : "opacity-0 invisible max-h-0 lg:max-h-none overflow-hidden lg:overflow-visible lg:translate-y-2 lg:group-hover:opacity-100 lg:group-hover:visible lg:group-hover:translate-y-0"
+                      }`}
+                  >
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                       {devopsTech.map((tech) => (
                         <div
                           key={tech.name}
@@ -240,20 +291,26 @@ export const Stack = () => {
                             alt={tech.name}
                             className="w-5 h-5 object-contain"
                           />
-                          <span className="font-normal">{tech.name}</span>
+                          <span className="font-normal text-xs sm:text-sm">
+                            {tech.name}
+                          </span>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  <button className="px-5 py-2.5 rounded-xl border border-neutral-800 bg-neutral-900/90 text-sm text-neutral-300 font-normal group-hover/btn:text-white group-hover/btn:border-fuchsia-500/50 group-hover/btn:bg-fuchsia-900/40 transition-all flex items-center gap-2">
+                  <button
+                    onClick={(e) => togglePopup("devops", e)}
+                    className={`w-full lg:w-auto px-5 py-2.5 rounded-xl border text-sm font-normal transition-all flex items-center justify-center lg:justify-start gap-2 lg:group-hover:text-white lg:group-hover:border-fuchsia-500/50 lg:group-hover:bg-fuchsia-900/40 
+                      ${activePopup === "devops" ? "text-white border-fuchsia-500/50 bg-fuchsia-900/40" : "border-neutral-800 bg-neutral-900/90 text-neutral-300"}`}
+                  >
                     <IconLayers
                       className="text-lg"
                       style={{ strokeWidth: 1.5 }}
                     />
                     Stack
                     <IconArrowAltUp
-                      className="ml-1 opacity-50 group-hover/btn:rotate-180 transition-transform"
+                      className={`ml-1 opacity-50 transition-transform ${activePopup === "devops" ? "rotate-180" : "lg:group-hover:rotate-180"}`}
                       style={{ strokeWidth: 1.5 }}
                     />
                   </button>

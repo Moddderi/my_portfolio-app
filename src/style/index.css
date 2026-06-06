@@ -263,3 +263,11 @@ body {
     transform: translateY(0);
   }
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-mt: 96px;
+}

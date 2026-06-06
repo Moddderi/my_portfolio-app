@@ -64,18 +64,18 @@ export const Hero = () => {
             Projects
           </a>
           <a
-            href="#contact"
-            className="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-purple-500 to-fuchsia-600 text-white rounded-xl text-sm font-medium hover:scale-105 transition-transform duration-300 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(168,85,247,0.2)] hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] animate-gradient-x border border-purple-400/20"
-          >
-            <IconLetter className="text-lg" style={{ strokeWidth: 1.5 }} />
-            Contact
-          </a>
-          <a
             href="#experience"
             className="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-fuchsia-500 to-pink-600 text-white rounded-xl text-sm font-medium hover:scale-105 transition-transform duration-300 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(217,70,239,0.2)] hover:shadow-[0_0_30px_rgba(217,70,239,0.4)] animate-gradient-x border border-fuchsia-400/20"
           >
             <IconStar className="text-lg" style={{ strokeWidth: 1.5 }} />
             Experience
+          </a>
+          <a
+            href="#contact"
+            className="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-purple-500 to-fuchsia-600 text-white rounded-xl text-sm font-medium hover:scale-105 transition-transform duration-300 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(168,85,247,0.2)] hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] animate-gradient-x border border-purple-400/20"
+          >
+            <IconLetter className="text-lg" style={{ strokeWidth: 1.5 }} />
+            Contact
           </a>
         </div>
         <div className="flex items-center gap-4 mt-8">
