@@ -4,7 +4,8 @@ import IconStar from "~icons/solar/star-linear";
 import IconCodeSquare from "~icons/solar/code-square-linear";
 import IconCase from "~icons/solar/case-minimalistic-linear";
 
-import IconInstagram from "~icons/mdi/instagram";
+// Заменили Instagram на LinkedIn
+import IconLinkedin from "~icons/mdi/linkedin";
 import IconGithub from "~icons/mdi/github";
 import IconTelegram from "~icons/mdi/telegram";
 
@@ -80,28 +81,28 @@ export const Hero = () => {
         </div>
         <div className="flex items-center gap-4 mt-8">
           <a
-            href="#"
-            className="w-12 h-12 rounded-full bg-neutral-900/50 flex items-center justify-center text-white hover:bg-gradient-to-tr hover:from-purple-400 hover:via-fuchsia-500 hover:to-pink-500 transition-all hover:shadow-[0_0_20px_rgba(217,70,239,0.5)] border border-white/5 hover:border-transparent hover:-translate-y-1"
-            title="Instagram"
+            href="https://www.linkedin.com/in/oleh-kyrychenko-8839b73a6/"
+            className="w-12 h-12 rounded-full bg-neutral-900/50 flex items-center justify-center text-white hover:bg-blue-600 transition-all hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] border border-white/5 hover:border-transparent hover:-translate-y-1"
+            title="LinkedIn"
           >
-            <IconInstagram className="text-2xl" />
+            <IconLinkedin className="text-2xl" />
           </a>
           <a
-            href="#"
+            href="https://github.com/Moddderi"
             className="w-12 h-12 rounded-full bg-neutral-900/50 flex items-center justify-center text-white hover:bg-[#333] transition-all hover:shadow-[0_0_15px_rgba(255,255,255,0.3)] border border-white/5 hover:border-transparent hover:-translate-y-1"
             title="GitHub"
           >
             <IconGithub className="text-2xl" />
           </a>
           <a
-            href="#"
+            href="https://t.me/kiricholeg5"
             className="w-12 h-12 rounded-full bg-neutral-900/50 flex items-center justify-center text-white hover:bg-indigo-500 transition-all hover:shadow-[0_0_20px_rgba(99,102,241,0.5)] border border-white/5 hover:border-transparent hover:-translate-y-1"
             title="Telegram"
           >
             <IconTelegram className="text-2xl" />
           </a>
           <a
-            href="mailto:hello@example.com"
+            href="mailto:kiricenkoo182@gmail.com"
             className="w-12 h-12 rounded-full bg-neutral-900/50 flex items-center justify-center text-white hover:bg-purple-500 transition-all hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] border border-white/5 hover:border-transparent hover:-translate-y-1"
             title="Email"
           >

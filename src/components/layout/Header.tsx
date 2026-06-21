@@ -79,35 +79,35 @@ export const Header = () => {
             onClick={handleLinkClick}
             className="mobile-link text-neutral-400 hover:text-white font-light transition-colors py-4 w-full text-center border-b border-white/5"
           >
-            Обо мне
+            About
           </a>
           <a
             href="#stack"
             onClick={handleLinkClick}
             className="mobile-link text-neutral-400 hover:text-white font-light transition-colors py-4 w-full text-center border-b border-white/5"
           >
-            Технологии
+            Technologies
           </a>
           <a
             href="#projects"
             onClick={handleLinkClick}
             className="mobile-link text-neutral-400 hover:text-white font-light transition-colors py-4 w-full text-center border-b border-white/5"
           >
-            Проекты
+            Projects
           </a>
           <a
             href="#experience"
             onClick={handleLinkClick}
             className="mobile-link text-neutral-400 hover:text-white font-light transition-colors py-4 w-full text-center border-b border-white/5"
           >
-            Опыт
+            Experience
           </a>
           <a
             href="#contact"
             onClick={handleLinkClick}
             className="mobile-link mt-6 w-full py-4 bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white rounded-xl text-center text-base font-medium border border-purple-400/20 shadow-[0_0_20px_rgba(168,85,247,0.2)] hover:scale-[1.02] transition-transform"
           >
-            Начать проект
+            Contact
           </a>
         </div>
       </div>
