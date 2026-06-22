@@ -59,16 +59,30 @@ const ModalContent = ({ project, onClose }: ModalContentProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const projectImages = project.images;
+
+  // Синхронизируем скролл контейнера при изменении currentSlide
+  useEffect(() => {
+    const container = document.getElementById("modal-slider-container");
+    const slides = container?.querySelectorAll(".slider-slide");
+    if (container && slides && slides[currentSlide]) {
+      slides[currentSlide].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
+      });
+    }
+  }, [currentSlide, projectImages.length]);
+
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % projectImages.length);
   };
+
   const prevSlide = () => {
     setCurrentSlide(
       (prev) => (prev - 1 + projectImages.length) % projectImages.length,
     );
   };
 
-  // Достаем готовые индивидуальные стили прямо из пришедшего проекта
   const { border, shadow, badge, gradient } = project.theme;
   const LiveIconComponent = ACTION_ICONS[project.liveIcon] || IconPlay;
 
@@ -87,10 +101,9 @@ const ModalContent = ({ project, onClose }: ModalContentProps) => {
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-          {/* Слайдер */}
-          {/* Слайдер */}
+          {/* РОДИТЕЛЬСКИЙ БЛОК СЛАЙДЕРА */}
           <div className="lg:col-span-2 flex flex-col bg-neutral-950/40 rounded-2xl border border-neutral-800/40 overflow-hidden min-h-70 lg:h-full relative group">
-            {/* Добавили скролл-контейнер для мобилок и scroll-smooth */}
+            {/* СКРОЛЛЯЩИЙСЯ КОНТЕЙНЕР ДЛЯ КАРТИНОК */}
             <div
               id="modal-slider-container"
               className="relative w-full h-full min-h-60 flex-1 flex overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-none"
@@ -98,33 +111,39 @@ const ModalContent = ({ project, onClose }: ModalContentProps) => {
               {projectImages.map((imgUrl, index) => (
                 <div
                   key={index}
-                  className="w-full h-full flex-shrink-0 snap-start relative min-w-full"
+                  className="slider-slide w-full h-full flex-shrink-0 snap-start relative min-w-full flex items-center justify-center bg-black/20"
                 >
+                  {/* ИЗМЕНЕНО: object-cover на object-contain */}
                   <img
                     src={imgUrl}
                     alt={`${project.title} screenshot ${index + 1}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain p-2"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
                 </div>
               ))}
+            </div>
 
-              {/* Кнопки прячем на мобилках (hidden sm:flex), так как там свайпают пальцем */}
+            {/* КНОПКИ СТРЕЛОК (вынесены из скроллящегося контейнера) */}
+            {currentSlide > 0 && (
               <button
                 onClick={prevSlide}
                 className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/50 border border-white/10 hidden sm:flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-neutral-900"
               >
                 <IconArrowLeft className="text-sm" />
               </button>
+            )}
+
+            {currentSlide < projectImages.length - 1 && (
               <button
                 onClick={nextSlide}
                 className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/50 border border-white/10 hidden sm:flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-neutral-900"
               >
                 <IconArrowRight className="text-sm" />
               </button>
-            </div>
+            )}
 
-            {/* Точки-индикаторы с динамическим фоном активной точки */}
+            {/* Точки-индикаторы */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 bg-neutral-900/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/5">
               {projectImages.map((_, index) => {
                 let activeColor = "bg-purple-500";

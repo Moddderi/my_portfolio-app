@@ -81,9 +81,9 @@ export const PROJECTS_DATA: ProjectData[] = [
       "A full-stack solution featuring strict client-side and server-side data validation, a robust database architecture, and seamless integration of all custom options into a unified shopping cart.",
     ],
     images: [
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1520004481453-85464c9cc390?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      "/assets/img/kirich-1.png",
+      "/assets/img/kirich-2.png",
+      "/assets/img/kirich-3.png",
     ],
     technologies: [
       { name: "React", icon: "/assets/icons/devicon--react.svg" },
@@ -95,10 +95,10 @@ export const PROJECTS_DATA: ProjectData[] = [
       { name: "PostgreSQL", icon: "/assets/icons/simple-icons--express.svg" },
       { name: "Zod", icon: "/assets/icons/devicon--typescript.svg" },
     ],
-    liveLink: "#",
+    liveLink: "https://website-kirich-ts-react-client.vercel.app/",
     liveLabel: "Visit Website",
     liveIcon: "solar:shop-linear",
-    codeLink: "#",
+    codeLink: "https://github.com/Moddderi/website-kirich-ts-react",
     theme: {
       border: "border-fuchsia-500/20",
       shadow: "shadow-[0_0_80px_rgba(217,70,239,0.15)]",
