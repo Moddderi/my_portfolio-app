@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Portal } from "../Portal";
+import { Portal } from "@/components/layout/Portal";
 import IconLetter from "~icons/solar/letter-linear";
 import IconLetterOpened from "~icons/solar/letter-opened-linear";
 import IconPlain from "~icons/solar/plain-linear";
