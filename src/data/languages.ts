@@ -57,4 +57,8 @@ export const LANGUAGE_IMAGES: IImage[] = [
     name: "Postman",
     href: "/assets/icons/devicon--postman.svg",
   },
+  {
+    name: "Zod",
+    href: "/assets/icons/simple-icons--zod.svg",
+  },
 ];

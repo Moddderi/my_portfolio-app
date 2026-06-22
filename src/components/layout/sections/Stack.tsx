@@ -45,7 +45,7 @@ export const Stack = () => {
   );
 
   const backendTech = LANGUAGE_IMAGES.filter((tech) =>
-    ["Node JS", "Express JS", "Sequelize"].includes(tech.name),
+    ["Node JS", "Express JS", "Sequelize", "Zod"].includes(tech.name),
   );
 
   const devopsTech = LANGUAGE_IMAGES.filter((tech) =>
