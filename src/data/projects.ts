@@ -73,7 +73,7 @@ export const PROJECTS_DATA: ProjectData[] = [
   {
     id: "kirich-sewing-studio",
     badge: "E-commerce & Custom",
-    title: "K.I.RICH Sewing Studio",
+    title: "K.I.RICH sewing studio",
     description:
       "An e-commerce platform for a sewing studio featuring a custom order builder.",
     paragraphs: [
