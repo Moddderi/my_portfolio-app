@@ -1,4 +1,5 @@
 import { Outlet } from "react-router";
+import { Analytics } from "@vercel/analytics/react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "./components/layout/Footer";
 
@@ -19,6 +20,7 @@ export const App = () => {
         <Outlet />
       </div>
       <Footer />
+      <Analytics />
     </div>
   );
 };

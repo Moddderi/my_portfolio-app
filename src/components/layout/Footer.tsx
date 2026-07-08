@@ -7,7 +7,7 @@ export const Footer = () => {
           <span className="text-purple-400">.</span>
         </div>
         <p className="text-xs text-neutral-500 font-extralight">
-          © 2024 Full Stack Developer Portfolio. Все права защищены.
+          © 2026 Full Stack Developer Portfolio. All rights reserved.
         </p>
       </div>
     </footer>
