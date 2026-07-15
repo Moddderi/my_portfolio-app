@@ -30,7 +30,7 @@ export const About = () => {
             </div>
           </Reveal>
 
-          <Stagger className="flex flex-col gap-5" delay={0.12} stagger={0.12}>
+          <Stagger className="flex flex-col gap-5" delay={0.18} stagger={0.16}>
             <StaggerItem>
               <p className="text-lg md:text-xl text-neutral-300 font-extralight leading-relaxed mb-4">
                 I specialize in architecting complex web platforms, dynamic SaaS
@@ -50,8 +50,8 @@ export const About = () => {
 
           <Stagger
             className="flex flex-col gap-4 sm:flex-row"
-            delay={0.2}
-            stagger={0.1}
+            delay={0.28}
+            stagger={0.14}
           >
             <StaggerItem>
               <div className="inline-flex self-start items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#EE5E4C]/30 bg-[#EE5E4C]/10 text-sm text-white font-normal shadow-[0_0_15px_rgba(238,94,76,0.15)] backdrop-blur-md cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:bg-[#EE5E4C]/20 hover:border-[#EE5E4C]/50 hover:shadow-[0_0_20px_rgba(238,94,76,0.3)]">

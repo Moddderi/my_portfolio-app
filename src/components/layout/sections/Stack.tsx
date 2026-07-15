@@ -119,8 +119,8 @@ export const Stack = () => {
         {/* Сетка карточек */}
         <Stagger
           className="grid grid-cols-1 lg:grid-cols-3 gap-6"
-          stagger={0.12}
-          delay={0.1}
+          stagger={0.15}
+          delay={0.15}
         >
           {/* 1. FRONTEND CARD */}
           <StaggerItem className="group-3d h-full">

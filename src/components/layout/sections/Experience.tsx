@@ -20,10 +20,15 @@ export const Experience = () => {
             <div className="relative pl-8 group">
               <motion.div
                 className="absolute w-3 h-3 bg-purple-400 rounded-full -left-[6.5px] top-1.5 shadow-[0_0_0_4px_#050505] group-hover:scale-125 transition-transform group-hover:shadow-[0_0_15px_rgba(168,85,247,0.5)]"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
+                initial={{ scale: 0, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.25, type: "spring", stiffness: 260 }}
+                transition={{
+                  delay: 0.35,
+                  type: "spring",
+                  stiffness: 180,
+                  damping: 16,
+                }}
               />
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
                 <h3 className="text-lg text-white font-light tracking-tight">
@@ -36,7 +41,7 @@ export const Experience = () => {
               <div className="text-sm text-neutral-300 font-normal mb-4">
                 BYPASS Team
               </div>
-              <Stagger className="space-y-2" stagger={0.1} delay={0.15}>
+              <Stagger className="space-y-2" stagger={0.14} delay={0.2}>
                 <StaggerItem>
                   <div className="flex items-start gap-2 text-sm text-neutral-400 font-extralight">
                     <IconArrowAltRight

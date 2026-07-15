@@ -7,15 +7,23 @@ import IconLinkedin from "~icons/mdi/linkedin";
 import IconGithub from "~icons/mdi/github";
 import IconTelegram from "~icons/mdi/telegram";
 
+const easeOutExpo: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 40, scale: 0.98 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
+    scale: 1,
     transition: {
-      delay: 0.1 + i * 0.1,
-      duration: 0.65,
-      ease: [0.22, 1, 0.36, 1] as const,
+      delay: 0.15 + i * 0.12,
+      duration: 0.95,
+      ease: easeOutExpo,
+      opacity: {
+        duration: 0.7,
+        delay: 0.15 + i * 0.12,
+        ease: [0.4, 0, 0.2, 1] as const,
+      },
     },
   }),
 };
@@ -152,9 +160,14 @@ export const Hero = () => {
       </div>
 
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.35, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, scale: 0.92, y: 24 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{
+          delay: 0.45,
+          duration: 1.1,
+          ease: easeOutExpo,
+          opacity: { duration: 0.8, delay: 0.45, ease: [0.4, 0, 0.2, 1] },
+        }}
         className="hidden lg:flex relative items-center justify-center w-full h-full min-h-[300px] mt-12 lg:mt-0 window-content z-10"
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-600/20 via-transparent to-transparent blur-3xl animate-pulse"></div>

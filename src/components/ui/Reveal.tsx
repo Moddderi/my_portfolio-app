@@ -1,5 +1,22 @@
-import { motion, type Variants } from "framer-motion";
+import { motion, type Transition, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
+
+/** Soft cinematic ease — decelerates smoothly, no bounce */
+const easeOutExpo: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+const revealTransition = (
+  duration: number,
+  delay: number,
+): Transition => ({
+  duration,
+  delay,
+  ease: easeOutExpo,
+  opacity: {
+    duration: duration * 0.75,
+    delay,
+    ease: [0.4, 0, 0.2, 1],
+  },
+});
 
 type RevealProps = {
   children: ReactNode;
@@ -13,15 +30,15 @@ type RevealProps = {
 const getOffset = (direction: RevealProps["direction"]) => {
   switch (direction) {
     case "up":
-      return { y: 36, x: 0 };
+      return { y: 48 };
     case "down":
-      return { y: -24, x: 0 };
+      return { y: -32 };
     case "left":
-      return { x: 40, y: 0 };
+      return { x: 48 };
     case "right":
-      return { x: -40, y: 0 };
+      return { x: -48 };
     default:
-      return { x: 0, y: 0 };
+      return {};
   }
 };
 
@@ -30,7 +47,7 @@ export const Reveal = ({
   className,
   delay = 0,
   direction = "up",
-  duration = 0.65,
+  duration = 0.9,
   once = true,
 }: RevealProps) => {
   const offset = getOffset(direction);
@@ -38,17 +55,15 @@ export const Reveal = ({
   const variants: Variants = {
     hidden: {
       opacity: 0,
+      scale: 0.98,
       ...offset,
     },
     visible: {
       opacity: 1,
+      scale: 1,
       x: 0,
       y: 0,
-      transition: {
-        duration,
-        delay,
-        ease: [0.22, 1, 0.36, 1],
-      },
+      transition: revealTransition(duration, delay),
     },
   };
 
@@ -57,7 +72,7 @@ export const Reveal = ({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, amount: 0.2, margin: "0px 0px -40px 0px" }}
+      viewport={{ once, amount: 0.15, margin: "0px 0px -8% 0px" }}
       variants={variants}
     >
       {children}
@@ -76,8 +91,8 @@ type StaggerProps = {
 export const Stagger = ({
   children,
   className,
-  stagger = 0.1,
-  delay = 0,
+  stagger = 0.12,
+  delay = 0.05,
   once = true,
 }: StaggerProps) => {
   const container: Variants = {
@@ -95,7 +110,7 @@ export const Stagger = ({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, amount: 0.15 }}
+      viewport={{ once, amount: 0.12, margin: "0px 0px -6% 0px" }}
       variants={container}
     >
       {children}
@@ -106,15 +121,14 @@ export const Stagger = ({
 const staggerItem: Variants = {
   hidden: {
     opacity: 0,
-    y: 28,
+    y: 40,
+    scale: 0.97,
   },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.55,
-      ease: [0.22, 1, 0.36, 1],
-    },
+    scale: 1,
+    transition: revealTransition(0.85, 0),
   },
 };
 
