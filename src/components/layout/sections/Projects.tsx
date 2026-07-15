@@ -2,6 +2,7 @@ import { useState } from "react";
 import { PROJECTS_DATA } from "@/data/projects";
 import type { ProjectData } from "@/data/projects";
 import { ProjectModal } from "@/components/ui/ProjectModal";
+import { Reveal } from "@/components/ui/Reveal";
 import { motion } from "framer-motion";
 
 import IconArrowRightUp from "~icons/solar/arrow-right-up-linear";
@@ -106,13 +107,13 @@ export const Projects = () => {
       className="py-24 relative z-10 overflow-hidden w-full"
     >
       <div className="max-w-6xl mx-auto px-6 mb-12">
-        <div className="flex items-center justify-center">
-          <div>
+        <Reveal>
+          <div className="flex items-center justify-center">
             <h2 className="text-3xl md:text-4xl text-white font-medium tracking-tighter mb-4">
               PROJECTS
             </h2>
           </div>
-        </div>
+        </Reveal>
       </div>
 
       <div className="carousel-container w-full relative overflow-hidden flex py-4 mask-[linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">

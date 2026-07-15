@@ -4,6 +4,7 @@ import IconLayers from "~icons/solar/layers-linear";
 import IconMonitorSmartphone from "~icons/solar/monitor-smartphone-linear";
 import IconServerSquare from "~icons/solar/server-square-linear";
 import IconDatabase from "~icons/solar/database-linear";
+import { Reveal, Stagger, StaggerItem } from "@/components/ui/Reveal";
 
 // Импортируем твой готовый массив иконок
 import { LANGUAGE_IMAGES } from "@/data/languages";
@@ -61,7 +62,7 @@ export const Stack = () => {
         {/* Хедер секции */}
         <div className="mb-16 flex flex-col lg:flex-row gap-10 lg:items-end justify-between relative">
           <div className="absolute -left-10 -top-10 w-48 h-48 bg-purple-500/10 blur-[80px] rounded-full z-0 pointer-events-none"></div>
-          <div className="relative z-10 flex-1">
+          <Reveal className="relative z-10 flex-1">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-500/20 bg-purple-500/5 text-xs text-purple-300 mb-6 uppercase tracking-widest font-medium">
               MY SKILLS
             </div>
@@ -71,52 +72,58 @@ export const Stack = () => {
             <p className="text-base text-neutral-400 font-extralight max-w-xl leading-relaxed">
               Tools I use to build high-load, high-performance products.
             </p>
-          </div>
+          </Reveal>
 
           {/* Проекты / Технологии Каунтеры */}
-          <div className="flex flex-wrap sm:flex-nowrap gap-8 md:gap-10 relative z-10 p-6 md:p-8 rounded-3xl border border-neutral-800/60 bg-[#070707]/95 backdrop-blur-md shadow-2xl">
-            <div className="flex flex-col">
-              <span className="text-4xl md:text-5xl text-white font-medium tracking-tighter mb-1 flex items-center">
-                5
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400 ml-1">
-                  +
+          <Reveal delay={0.15} direction="left" className="relative z-10">
+            <div className="flex flex-wrap sm:flex-nowrap gap-8 md:gap-10 p-6 md:p-8 rounded-3xl border border-neutral-800/60 bg-[#070707]/95 backdrop-blur-md shadow-2xl">
+              <div className="flex flex-col">
+                <span className="text-4xl md:text-5xl text-white font-medium tracking-tighter mb-1 flex items-center">
+                  5
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400 ml-1">
+                    +
+                  </span>
                 </span>
-              </span>
-              <span className="text-xs text-neutral-500 font-medium uppercase tracking-wider">
-                PROJECTS
-              </span>
-            </div>
-            <div className="hidden sm:block w-px bg-gradient-to-b from-transparent via-neutral-700 to-transparent"></div>
-            <div className="flex flex-col">
-              <span className="text-4xl md:text-5xl text-white font-medium tracking-tighter mb-1 flex items-center">
-                10
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400 ml-1">
-                  +
+                <span className="text-xs text-neutral-500 font-medium uppercase tracking-wider">
+                  PROJECTS
                 </span>
-              </span>
-              <span className="text-xs text-neutral-500 font-medium uppercase tracking-wider">
-                TECHNOLOGIES
-              </span>
-            </div>
-            <div className="hidden sm:block w-px bg-gradient-to-b from-transparent via-neutral-700 to-transparent"></div>
-            <div className="flex flex-col">
-              <span className="text-4xl md:text-5xl text-white font-medium tracking-tighter mb-1 flex items-center">
-                100
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400 ml-1">
-                  %
+              </div>
+              <div className="hidden sm:block w-px bg-gradient-to-b from-transparent via-neutral-700 to-transparent"></div>
+              <div className="flex flex-col">
+                <span className="text-4xl md:text-5xl text-white font-medium tracking-tighter mb-1 flex items-center">
+                  10
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400 ml-1">
+                    +
+                  </span>
                 </span>
-              </span>
-              <span className="text-xs text-neutral-500 font-medium uppercase tracking-wider">
-                DEDICATION
-              </span>
+                <span className="text-xs text-neutral-500 font-medium uppercase tracking-wider">
+                  TECHNOLOGIES
+                </span>
+              </div>
+              <div className="hidden sm:block w-px bg-gradient-to-b from-transparent via-neutral-700 to-transparent"></div>
+              <div className="flex flex-col">
+                <span className="text-4xl md:text-5xl text-white font-medium tracking-tighter mb-1 flex items-center">
+                  100
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-fuchsia-400 ml-1">
+                    %
+                  </span>
+                </span>
+                <span className="text-xs text-neutral-500 font-medium uppercase tracking-wider">
+                  DEDICATION
+                </span>
+              </div>
             </div>
-          </div>
+          </Reveal>
         </div>
 
         {/* Сетка карточек */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <Stagger
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6"
+          stagger={0.12}
+          delay={0.1}
+        >
           {/* 1. FRONTEND CARD */}
-          <div className="group-3d h-full">
+          <StaggerItem className="group-3d h-full">
             <div className="card-3d p-8 rounded-3xl border border-neutral-800/60 bg-neutral-900/60 hover:bg-neutral-900/80 hover:shadow-[0_20px_40px_-10px_rgba(99,102,241,0.15)] hover:border-indigo-500/40 transition-all duration-500 relative flex flex-col h-full group">
               <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 blur-[80px] rounded-full -z-10 group-hover:bg-indigo-500/20 transition-colors duration-500 animate-blob"></div>
               <div className="content-3d flex flex-col h-full">
@@ -183,10 +190,10 @@ export const Stack = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </StaggerItem>
 
           {/* 2. BACKEND CARD */}
-          <div className="group-3d h-full">
+          <StaggerItem className="group-3d h-full">
             <div className="card-3d p-8 rounded-3xl border border-neutral-800/60 bg-neutral-900/60 hover:bg-neutral-900/80 hover:shadow-[0_20px_40px_-10px_rgba(168,85,247,0.15)] hover:border-purple-500/40 transition-all duration-500 relative flex flex-col h-full group">
               <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 blur-[80px] rounded-full -z-10 group-hover:bg-purple-500/20 transition-colors duration-500 animate-blob animation-delay-2000"></div>
               <div className="content-3d flex flex-col h-full">
@@ -250,10 +257,10 @@ export const Stack = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </StaggerItem>
 
           {/* 3. DEVOPS & TOOLS CARD */}
-          <div className="group-3d h-full">
+          <StaggerItem className="group-3d h-full">
             <div className="card-3d p-8 rounded-3xl border border-neutral-800/60 bg-neutral-900/60 hover:bg-neutral-900/80 hover:shadow-[0_20px_40px_-10px_rgba(217,70,239,0.15)] hover:border-fuchsia-500/40 transition-all duration-500 relative flex flex-col h-full group">
               <div className="absolute top-0 right-0 w-64 h-64 bg-fuchsia-500/10 blur-[80px] rounded-full -z-10 group-hover:bg-fuchsia-500/20 transition-colors duration-500 animate-blob animation-delay-4000"></div>
               <div className="content-3d flex flex-col h-full">
@@ -317,8 +324,8 @@ export const Stack = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </StaggerItem>
+        </Stagger>
       </div>
     </section>
   );
